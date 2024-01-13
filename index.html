@@ -6,6 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tebe Kenangan</title>
 
+        <meta content="Alikasi Website Kedai Kopi Tebe" name="description">
+
+        <!-- Favicons -->
+        <link href="img/logo-coffe.jpg" rel="icon">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +26,10 @@
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- App -->
-        <script src="src/app.js"></script>
+        <script src="src/app.js" async></script>
+
+        <!-- Midtrans -->
+        <!-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-gMSmgwmWPGWFHMr4" async></script> -->
     </head>
     <body>
 
@@ -78,6 +86,8 @@
 
                 <div class="form-container" x-show="$store.cart.items.length">
                     <form action="" id="checkoutForm">
+                        <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+                        <input type="hidden" name="total" x-model="$store.cart.total">
                         <h5>Customer Detail</h5>
 
                         <label for="name">
@@ -93,7 +103,7 @@
                             <input type="number" name="phone" id="phone" autocomplete="off">
                         </label>
 
-                        <button class="checkout-button" type="submit" id="checkout-button" value="checkout">Checkout</button>
+                        <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
                     </form>
                 </div>
             </div>
@@ -248,26 +258,36 @@
         <!-- Contact Section End -->
 
         <!-- Modal Box Item Detail Start -->
-        <div class="modal" id="item-detail-modal">
+        <div class="modal" id="item-detail-modal" x-data>
             <div class="modal-container">
-                <a href="#" class="close-icon"><i data-feather="x"></i></a>
-                <div class="modal-content">
-                    <img src="img/products/coffe-1.jpg" alt="Product 1">
-                    <div class="product-content">
-                        <h3>Product 1</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit necessitatibus facere alias, enim rem mollitia doloribus est minus laborum, perferendis veniam excepturi eius reiciendis ipsa!</p>
-                        <div class="product-stars">
-                            <i data-feather="star" class="star-full"></i>
-                            <i data-feather="star" class="star-full"></i>
-                            <i data-feather="star" class="star-full"></i>
-                            <i data-feather="star" class="star-full"></i>
-                            <i data-feather="star"></i>
+                    <template x-for="(item, index) in items" x-key="index">
+                    <a href="#" class="close-icon"><i data-feather="x"></i></a>
+                    <div class="modal-content">
+                        <img :src="`img/products/${item.img}`" :alt="item.name">
+                        <div class="product-content">
+                            <h3 x-text="item.name"></h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit necessitatibus facere alias, enim rem mollitia doloribus est minus laborum, perferendis veniam excepturi eius reiciendis ipsa!</p>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="img/feather-sprite.svg#star" />
+                            </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="img/feather-sprite.svg#star" />
+                            </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="img/feather-sprite.svg#star" />
+                            </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="img/feather-sprite.svg#star" />
+                            </svg>
+                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <use href="img/feather-sprite.svg#star" />
+                            </svg>
+                            <div class="product-price" x-text="item.price"> <span></span></div>
+                            <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
                         </div>
-                        <div class="product-price">IDR 30K <span>IDR 55K</span></div>
-                        <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
                     </div>
+                </template>
                 </div>
-            </div>
         </div>
         <!-- Modal Box Item Detail Start -->
 
