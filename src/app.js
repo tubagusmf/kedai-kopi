@@ -115,15 +115,15 @@ checkoutButton.addEventListener('click', async function (e) {
 
 //format pesan whatsapp
 const formatMessage = (obj) => {
-    return `Data Customer
-        Nama : ${obj.name}
-        Email : ${obj.email}
-        No HP : ${obj.phone}
-    Data Pesanan
-        ${JSON.parse(obj.items).map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n`)}
-    TOTAL : ${rupiah(obj.total)} \n
-    Pembayaran melalu via Transfer : \n
-    Mandiri : 157********* (Tubagus) \n
+    return `*Data Customer :*
+    Nama  : ${obj.name}
+    Email : ${obj.email}
+    No HP : ${obj.phone}
+    *Data Pesanan*
+    - ${JSON.parse(obj.items).map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n`)}
+    *Total Pembayaran :* ${rupiah(obj.total)} \n \n
+    *Pembayaran melalu via Transfer :* \n
+    Bank Mandiri : 157********* (Tubagus) \n
     Terima kasih telah belanja :)`;
 };
 
